@@ -33,6 +33,15 @@
             <version>1.11.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.aggregatorVacancy</groupId>
+            <artifactId>aggregatorVacancy</artifactId>
+            <version>0.1</version>
+            <scope>system</scope>
+            <systemPath>/Users/macuser/Desktop/projects/aggregatorVacancy/target/aggregatorVacancy-1.0-SNAPSHOT.jar</systemPath>
+
+        </dependency>
+
 
 
     </dependencies>
