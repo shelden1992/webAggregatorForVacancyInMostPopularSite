@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>servletDataBase</servlet-name>
-        <servlet-class>net.servletDatabase.ServletDateBase</servlet-class>
+        <servlet-class>net.servletDatabase.controller.ServletDateBase</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>servletDataBase</servlet-name>

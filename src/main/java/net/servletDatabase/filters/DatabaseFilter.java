@@ -20,6 +20,9 @@ public class DatabaseFilter extends AbstractDatabaseFilter {
 //response.sendRedirect("/webPlusDatabase_war_exploded/");
         try {
             chain.doFilter(request,response);
+
+
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ServletException e) {

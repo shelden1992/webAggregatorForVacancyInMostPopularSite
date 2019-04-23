@@ -20,11 +20,11 @@
         </plugins>
     </build>
     <dependencies>
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.15</version>
-    </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
 
 
         <dependency>
@@ -34,14 +34,14 @@
         </dependency>
 
         <dependency>
-            <groupId>com.aggregatorVacancy</groupId>
+            <groupId>groupId</groupId>
             <artifactId>aggregatorVacancy</artifactId>
-            <version>0.1</version>
+            <version>1.0-SNAPSHOT</version>
             <scope>system</scope>
-            <systemPath>/Users/macuser/Desktop/projects/aggregatorVacancy/target/aggregatorVacancy-1.0-SNAPSHOT.jar</systemPath>
+            <systemPath>/Users/macuser/Desktop/projects/aggregatorVacancy/target/aggregatorVacancy-1.0-SNAPSHOT.jar
+            </systemPath>
 
         </dependency>
-
 
 
     </dependencies>

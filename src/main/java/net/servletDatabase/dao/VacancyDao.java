@@ -15,7 +15,10 @@ public interface VacancyDao {
 
     public List<Vacancy> selectAllVacancy() throws DaoSystemException;
 
-     List <Vacancy> selectVacanсyByCity(String city) throws NoSuchEntityException;
+     List <Vacancy> selectVacanсyByCity(String city) throws NoSuchEntityException, DaoSystemException;
+
+     List<Vacancy> selectVacancyBySalary(Integer min, Integer max) throws DaoSystemException, NoSuchEntityException;
+
 
 
 
