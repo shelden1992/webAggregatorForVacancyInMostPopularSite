@@ -14,7 +14,6 @@ import java.util.Properties;
 
 public class VacancyDaoMock implements VacancyDao {
 
-
     private static ResultSet connectToDatabase(String query) throws DaoSystemException {
         Properties properties=new Properties();
 
@@ -35,6 +34,7 @@ public class VacancyDaoMock implements VacancyDao {
 
         try {
             Connection connection=DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
+            //!!!!!!!!!! не закрыт!!!!!!!!
 
 
             PreparedStatement preparedStatement=connection.prepareStatement(query);
@@ -85,6 +85,7 @@ public class VacancyDaoMock implements VacancyDao {
 
 
         }
+
 
 
         return list;

@@ -129,10 +129,10 @@
     .vader:hover .eyes .right{background:#455caa}
     </style>
 <style type="text/css">
-    body{
-        background-image: url(http://wookiee.ru/wp-content/uploads/2015/03/LOGO.jpg);
+    /*body{*/
+        /*background-image: url(http://wookiee.ru/wp-content/uploads/2015/03/LOGO.jpg);*/
 
-    }
+    /*}*/
 </style>
     </body>
 </html>
