@@ -7,7 +7,9 @@ import com.aggregator.view.View;
 
 public class GoToAggregVacationAndCreateNewDatabase {
 
-    void aggregatorCrate(String typeVacansy, String city) {
+    public void aggregatorCreate(String typeVacanсy, String city,String nameDatabase ,boolean newDatabase) {
+
+
         Provider[] providers={new Provider(new RabotaStrategy()), new Provider(new DouStrategy()), new Provider(new HHStrategy()), new Provider(new WorkUaStrategy())};
 
 
@@ -21,7 +23,10 @@ public class GoToAggregVacationAndCreateNewDatabase {
 
 //
         Controller controller=new Controller(model);
-        controller.onCitySelectAndTypeVacancy(typeVacansy, city);
+
+
+
+        controller.onCitySelectAndTypeVacancy(typeVacanсy, city, nameDatabase, newDatabase );
 
         databaseView.setController(controller);
     }

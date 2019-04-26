@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static net.servletDatabase.doCorrectClass.CorrectClass.doCorrectCityOrDatabaseName;
+
 public class VacancyDaoMock implements VacancyDao {
 
     private static ResultSet connectToDatabase(String query) throws DaoSystemException {
@@ -115,26 +117,14 @@ public class VacancyDaoMock implements VacancyDao {
     @Override
     public List<Vacancy> selectAllVacancyWithoutCity(String webSite, String nameDatabase) throws DaoSystemException, NoSuchEntityException {
         if (!webSite.equals("allWebSite")) {
-            return getInformationByVacationAdnAddToList("select * from " + doCorrectCityOrDatabaseName(nameDatabase) + " where url like " + "\'%" + webSite + "%\'");
+            return getInformationByVacationAdnAddToList("select * from " +  nameDatabase + " where url like " + "\'%" + webSite + "%\'");
         } else if(webSite.equals("allWebSite")){
-        return getInformationByVacationAdnAddToList("select * from " + doCorrectCityOrDatabaseName(nameDatabase));}
+        return getInformationByVacationAdnAddToList("select * from " + nameDatabase);}
         throw  new NoSuchEntityException("Current vacancy are missed");
 
     }
 
 
 
-    private String doCorrectCityOrDatabaseName(String cityOrDatabase) {
-        String correctCityOrDatabase=cityOrDatabase;
-        if
-        (cityOrDatabase.matches(" ")) {
-            correctCityOrDatabase=correctCityOrDatabase.replaceAll(" ", "_");
-        }
-        if (correctCityOrDatabase.matches("-")) {
-            correctCityOrDatabase=correctCityOrDatabase.replaceAll("-", "_");
-        }
 
-
-        return correctCityOrDatabase.toLowerCase();
-    }
 }
