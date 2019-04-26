@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import static net.servletDatabase.controller.ServletDateBase.DATABASE_NAME;
+
 public class VacancyDaoMock implements VacancyDao {
 
     private static ResultSet connectToDatabase(String query) throws DaoSystemException {
@@ -104,5 +106,47 @@ public class VacancyDaoMock implements VacancyDao {
     public List<Vacancy> selectVacancyBySalary(Integer min, Integer max) throws DaoSystemException, NoSuchEntityException {
         String query="select * from vacancy_table where salary >" + min + "and salary <" + min;
         return null;
+    }
+
+    @Override
+    public List<Vacancy> allVacancyAllCity() throws DaoSystemException, NoSuchEntityException {
+        List<String> databaseName=DATABASE_NAME;
+        List<Vacancy> list =new ArrayList<>();
+        for (String database:DATABASE_NAME
+             ) {
+
+            String query = "select * from "+ database;
+            try (ResultSet resultSet=connectToDatabase(query)) {
+
+                while (resultSet.next()) {
+
+                    Vacancy vacancy=new Vacancy();
+
+                    resultSet.getString("id");
+
+                    vacancy.setUrl(resultSet.getString("url"));
+
+                    vacancy.setTitle(resultSet.getString("title"));
+
+                    vacancy.setCity(resultSet.getString("city"));
+
+                    vacancy.setCompanyName(resultSet.getString("company_name"));
+
+                    vacancy.setSalary(resultSet.getString("salary"));
+                    list.add(vacancy);
+
+
+                }
+
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+
+
+            }
+
+
+
+        }
     }
 }
