@@ -31,6 +31,23 @@
     Salary maximal:<br>
     <input type="text" name="salary_max"><br>
 
+    Choose web-site
+    <br>
+
+
+        <select name="web_site">
+            <option disabled="disabled">Choose web-site</option>
+            <option value="allWebSite">All web-site</option>
+            <option value="hh.ua">hh.ua</option>
+            <option value="work.ua">Work.ua</option>
+            <option value="rabota.ua">Rabota.ua</option>
+            <option value="dou.ua">dou.ua</option>
+        </select>
+
+
+    <br>
+
+
     <br>
     <input type="submit" value="Submit"><br>
 </form>

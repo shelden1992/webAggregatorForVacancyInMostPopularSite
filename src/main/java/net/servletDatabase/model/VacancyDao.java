@@ -1,9 +1,9 @@
-package net.servletDatabase.dao;
+package net.servletDatabase.model;
 
 
 import com.aggregator.vo.Vacancy;
-import net.servletDatabase.dao.exception.DaoSystemException;
-import net.servletDatabase.dao.exception.NoSuchEntityException;
+import net.servletDatabase.model.exception.DaoSystemException;
+import net.servletDatabase.model.exception.NoSuchEntityException;
 
 import java.util.List;
 
@@ -13,11 +13,13 @@ import java.util.List;
 // методы будут с сигнатурой, которые нужны java!!!
 public interface VacancyDao {
 
-    public List<Vacancy> selectAllVacancy() throws DaoSystemException;
+    public List<Vacancy> selectAllVacancy() throws DaoSystemException, NoSuchEntityException;
 
      List <Vacancy> selectVacanсyByCity(String city) throws NoSuchEntityException, DaoSystemException;
 
      List<Vacancy> selectVacancyBySalary(Integer min, Integer max) throws DaoSystemException, NoSuchEntityException;
+
+     List<Vacancy> selectAllVacancyWithoutCity(String webSite, String nameDatabase) throws DaoSystemException, NoSuchEntityException;
 
 
 

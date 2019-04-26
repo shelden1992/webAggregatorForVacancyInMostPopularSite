@@ -5,27 +5,27 @@ import com.aggregator.model.*;
 import com.aggregator.view.DatabaseView;
 import com.aggregator.view.View;
 import com.aggregator.vo.Vacancy;
-import net.servletDatabase.dao.VacancyDao;
-import net.servletDatabase.dao.exception.DaoSystemException;
-import net.servletDatabase.dao.exception.NoSuchEntityException;
-import net.servletDatabase.dao.impl.VacancyDaoMock;
+import net.servletDatabase.model.GoToAggregVacationAndCreateNewDatabase;
+import net.servletDatabase.model.VacancyDao;
+import net.servletDatabase.model.exception.DaoSystemException;
+import net.servletDatabase.model.exception.NoSuchEntityException;
+import net.servletDatabase.model.impl.VacancyDaoMock;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.sql.*;
 import java.util.List;
-import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 public class ServletDateBase extends HttpServlet {
     private VacancyDao vacancyDao=new VacancyDaoMock();
     private final static String PAGE_ALL_VACANCY="allVacancy.jsp";
-    private final static String PAGE_BY_SALARY="allVacancy.jsp";
-    private final static String PAGE_BY_CITY="allVacancy.jsp";
     private static List<Vacancy> chooseVacancy;
+    private final static GoToAggregVacationAndCreateNewDatabase createDatabase=new GoToAggregVacationAndCreateNewDatabase();
+private static final Set<String> database_name= new ConcurrentSkipListSet<>(){{add("vacancy_table");}};
 
     public static List<Vacancy> getChooseVacancy() {
         return chooseVacancy;
@@ -48,47 +48,31 @@ public class ServletDateBase extends HttpServlet {
         String city=request.getParameter("city");
         String salary_min=request.getParameter("salary_min");
         String salary_max=request.getParameter("salary_max");
+        String web_site =request.getParameter("web_site");
 
-
-        if (vacancy != null && city != null) {
-            aggregatorCrate(vacancy, city);
-
-
+        if(vacancy!=null&& database_name.contains(vacancy) ){
             try {
-                chooseVacancy=vacancyDao.selectAllVacancy();
+                chooseVacancy = vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
+                request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
 
-                request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);//
-                return;
 
             } catch (DaoSystemException e) {
+            } catch (NoSuchEntityException e) {
             }
-
         }
-        else {
-            response.sendRedirect(PAGE_ERROR);
-        }
-    }
 
 
-    void aggregatorCrate(String typeVacansy, String city) {
-        Provider[] providers={new Provider(new RabotaStrategy()), new Provider(new DouStrategy()), new Provider(new HHStrategy()), new Provider(new WorkUaStrategy())};
-
-
-//        HtmlView htmlView = new HtmlView();
-        DatabaseView databaseView=new DatabaseView();
-        View[] views={databaseView};
-
-
-        Model model=new Model(views, providers);
-
-
+//        try {
+//            chooseVacancy=vacancyDao.selectAllVacancy();
 //
-        Controller controller=new Controller(model);
-        controller.onCitySelectAndTypeVacancy(typeVacansy, city);
+//            request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);//
+//            return;
+//
+//        } catch (DaoSystemException e) {
+//        }
 
-        databaseView.setController(controller);
+        response.sendRedirect(PAGE_ERROR);
     }
-//        response.sendRedirect(PAGE_ERROR);
 
 
 }

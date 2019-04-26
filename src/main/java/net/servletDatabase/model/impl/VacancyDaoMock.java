@@ -1,9 +1,9 @@
-package net.servletDatabase.dao.impl;
+package net.servletDatabase.model.impl;
 
 import com.aggregator.vo.Vacancy;
-import net.servletDatabase.dao.VacancyDao;
-import net.servletDatabase.dao.exception.DaoSystemException;
-import net.servletDatabase.dao.exception.NoSuchEntityException;
+import net.servletDatabase.model.VacancyDao;
+import net.servletDatabase.model.exception.DaoSystemException;
+import net.servletDatabase.model.exception.NoSuchEntityException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -52,11 +52,16 @@ public class VacancyDaoMock implements VacancyDao {
     //именно тут я буду ходить в базу данных
 
     @Override
-    public List<Vacancy> selectAllVacancy() throws DaoSystemException {
+    public List<Vacancy> selectAllVacancy() throws DaoSystemException, NoSuchEntityException {
         String query="select * from vacancy_table";
-        List<Vacancy> list =new ArrayList<>();
+
+        return getInformationByVacationAdnAddToList(query);
 
 
+    }
+
+    private List<Vacancy> getInformationByVacationAdnAddToList(String query) throws NoSuchEntityException {
+        List<Vacancy> list=new ArrayList<>();
         try (ResultSet resultSet=connectToDatabase(query)) {
 
             while (resultSet.next()) {
@@ -84,25 +89,52 @@ public class VacancyDaoMock implements VacancyDao {
             e.printStackTrace();
 
 
+        } catch (DaoSystemException e) {
+            e.printStackTrace();
         }
-
-
+        if (list.isEmpty()) throw new NoSuchEntityException("Not found vacancy");
 
         return list;
     }
 
     @Override
     public List<Vacancy> selectVacanсyByCity(String city) throws NoSuchEntityException {
-        String query="select * from vacancy_table where city = \'Харьков\'";
+        String query="select * from vacancy_table where city = \'" + doCorrectCityOrDatabaseName(city) + "\'";
 
-
-        return null;
+        return getInformationByVacationAdnAddToList(query);
 
     }
 
     @Override
     public List<Vacancy> selectVacancyBySalary(Integer min, Integer max) throws DaoSystemException, NoSuchEntityException {
-        String query="select * from vacancy_table where salary >" + min + "and salary <" + min;
-        return null;
+
+        String query="select * from vacancy_table where salary >" + min + " and salary <" + min;
+        return getInformationByVacationAdnAddToList(query);
+    }
+
+    @Override
+    public List<Vacancy> selectAllVacancyWithoutCity(String webSite, String nameDatabase) throws DaoSystemException, NoSuchEntityException {
+        if (!webSite.equals("allWebSite")) {
+            return getInformationByVacationAdnAddToList("select * from " + doCorrectCityOrDatabaseName(nameDatabase) + " where url like " + "\'%" + webSite + "%\'");
+        } else if(webSite.equals("allWebSite")){
+        return getInformationByVacationAdnAddToList("select * from " + doCorrectCityOrDatabaseName(nameDatabase));}
+        throw  new NoSuchEntityException("Current vacancy are missed");
+
+    }
+
+
+
+    private String doCorrectCityOrDatabaseName(String cityOrDatabase) {
+        String correctCityOrDatabase=cityOrDatabase;
+        if
+        (cityOrDatabase.matches(" ")) {
+            correctCityOrDatabase=correctCityOrDatabase.replaceAll(" ", "_");
+        }
+        if (correctCityOrDatabase.matches("-")) {
+            correctCityOrDatabase=correctCityOrDatabase.replaceAll("-", "_");
+        }
+
+
+        return correctCityOrDatabase.toLowerCase();
     }
 }
