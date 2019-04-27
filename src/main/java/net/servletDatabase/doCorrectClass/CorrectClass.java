@@ -2,25 +2,21 @@ package net.servletDatabase.doCorrectClass;
 
 public class CorrectClass {
 
-    static public String doCorrectCityOrDatabaseName(String cityOrDatabase) {
-        if (cityOrDatabase == null) {
-            return null;
-        }
-        String cityAndDatabase=cityOrDatabase;
+
+        static public String doCorrectCityOrDatabaseName(String cityOrDatabase) {
+            if (cityOrDatabase == null) {
+                return null;
+            }
 
 
-        if
-        (cityOrDatabase.matches(" ")) {
-            cityAndDatabase=cityOrDatabase.replaceAll(" ", "_");
-        }
-        if (cityAndDatabase.matches("-")) {
-            cityAndDatabase=cityAndDatabase.replaceAll("-", "_");
-        }
-        if (cityAndDatabase.matches("\\+")) {
-            cityAndDatabase=cityAndDatabase.replaceAll("\\+", "_");
-        }
+            String s=cityOrDatabase;
+
+            s=s.replaceAll(" ", "_");
+            s=s.replaceAll("-", "_");
+            s=s.replaceAll("\\+", "_");
 
 
-        return cityAndDatabase.toLowerCase();
-    }
+            return s.toLowerCase();
+        }
+
 }

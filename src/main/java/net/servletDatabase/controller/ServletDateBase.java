@@ -51,57 +51,76 @@ public class ServletDateBase extends HttpServlet {
         String salary_max=request.getParameter("salary_max");
         String web_site=request.getParameter("web_site");
 
-        if (vacancy != null && !database_name.contains(vacancy) && city != null) {
-
-            try {
-                createDatabase.aggregatorCreate(vacancy, city,vacancy ,!database_name.contains(vacancy));
+        switchWhatWeDo(vacancy, city, salary_min, salary_max, web_site, request, response);
 
 
-                chooseVacancy=vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
-                request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
-                database_name.add(vacancy);
+    }
 
-            } catch (DaoSystemException e) {
-            } catch (NoSuchEntityException e) {
+    private void switchWhatWeDo(String vacancy, String city, String salary_min, String salary_max, String web_site, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (database_name.contains(vacancy) && vacancy != null && web_site.equals("allWebSite")) {
+            if (city.isEmpty()) {
+
+                try {
+                    chooseVacancy=vacancyDao.selectAllVacancy(vacancy);
+                    request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
+
+
+                } catch (DaoSystemException | NoSuchEntityException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                try {
+                    chooseVacancy=vacancyDao.selectVacanсyByCity(city, vacancy);
+                    request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
+                } catch (NoSuchEntityException | DaoSystemException e) {
+                    e.printStackTrace();
+                }
+
             }
-        } else if (city == null && vacancy != null && database_name.contains(vacancy)) {
-            try{
-            chooseVacancy=vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
-                request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
-                database_name.add(vacancy);}
 
-            catch (DaoSystemException | NoSuchEntityException e) {
-                e.printStackTrace();
-            }
+
 
         }
-//        else if (city!=null && vacancy!=null && database_name.contains(vacancy)){
-//            try{
-//                chooseVacancy=vacancyDao.selectVacanсyByCity(city, vacancy);
-//                request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
-//                database_name.add(vacancy);}
-//
-//            catch (DaoSystemException | NoSuchEntityException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        else if(vacancy!=null && database_name.contains(vacancy) && !web_site.equals("allWebSite")){
+          if (city.isEmpty()) {
+              try {
+                  chooseVacancy=vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
+                  request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
 
 
+              } catch (DaoSystemException | NoSuchEntityException e) {
+                  e.printStackTrace();
+              }
+          }
+          else {
+              try {
+                  chooseVacancy=vacancyDao.selectVacancyCityAndWebSiteHave(web_site, vacancy,city);
+                  request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
 
-//        try {
-//            chooseVacancy=vacancyDao.selectAllVacancy();
-//
-//            request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);//
-//            return;
-//
-//        } catch (DaoSystemException e) {
-//        }
+
+              } catch (DaoSystemException | NoSuchEntityException e) {
+                  e.printStackTrace();
+              }
+          }
+
+        }
+
+        else if (vacancy != null && !database_name.contains(vacancy)) {
+
+
+            createDatabase.aggregatorCreate(vacancy, city, vacancy, !database_name.contains(vacancy));
+
+            database_name.add(vacancy);
+            switchWhatWeDo(vacancy, city, salary_min, salary_max, web_site, request, response);
+
+        }
+
 
         response.sendRedirect(PAGE_ERROR);
     }
-
-
 }
+
+
 
 
 

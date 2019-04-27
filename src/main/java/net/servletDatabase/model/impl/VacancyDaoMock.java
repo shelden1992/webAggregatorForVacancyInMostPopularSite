@@ -36,7 +36,7 @@ public class VacancyDaoMock implements VacancyDao {
 
         try {
             Connection connection=DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("user"), properties.getProperty("password"));
-            //!!!!!!!!!! не закрыт!!!!!!!!
+            //!!!!!!!!!! не закрыт!!!!!!!! это какая-то хуйня!!!!!
 
 
             PreparedStatement preparedStatement=connection.prepareStatement(query);
@@ -54,8 +54,8 @@ public class VacancyDaoMock implements VacancyDao {
     //именно тут я буду ходить в базу данных
 
     @Override
-    public List<Vacancy> selectAllVacancy() throws DaoSystemException, NoSuchEntityException {
-        String query="select * from vacancy_table";
+    public List<Vacancy> selectAllVacancy(String vacancy) throws DaoSystemException, NoSuchEntityException {
+        String query="select * from " + vacancy;
 
         return getInformationByVacationAdnAddToList(query);
 
@@ -87,12 +87,10 @@ public class VacancyDaoMock implements VacancyDao {
             }
 
 
-        } catch (SQLException e) {
+        } catch (SQLException | DaoSystemException e) {
             e.printStackTrace();
 
 
-        } catch (DaoSystemException e) {
-            e.printStackTrace();
         }
         if (list.isEmpty()) throw new NoSuchEntityException("Not found vacancy");
 
@@ -100,8 +98,8 @@ public class VacancyDaoMock implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> selectVacanсyByCity(String city) throws NoSuchEntityException {
-        String query="select * from vacancy_table where city = \'" + doCorrectCityOrDatabaseName(city) + "\'";
+    public List<Vacancy> selectVacanсyByCity(String city, String vacancy) throws NoSuchEntityException {
+        String query="select * from " + vacancy + " where city =\'" + city + "\'";
 
         return getInformationByVacationAdnAddToList(query);
 
@@ -115,16 +113,21 @@ public class VacancyDaoMock implements VacancyDao {
     }
 
     @Override
-    public List<Vacancy> selectAllVacancyWithoutCity(String webSite, String nameDatabase) throws DaoSystemException, NoSuchEntityException {
+    public List<Vacancy> selectAllVacancyWithoutCity(String webSite, String vacancy) throws DaoSystemException, NoSuchEntityException {
         if (!webSite.equals("allWebSite")) {
-            return getInformationByVacationAdnAddToList("select * from " +  nameDatabase + " where url like " + "\'%" + webSite + "%\'");
-        } else if(webSite.equals("allWebSite")){
-        return getInformationByVacationAdnAddToList("select * from " + nameDatabase);}
-        throw  new NoSuchEntityException("Current vacancy are missed");
+            return getInformationByVacationAdnAddToList("select * from " + vacancy + " where url like " + "\'%" + webSite + "%\'");
+        } else {
+            return getInformationByVacationAdnAddToList("select * from " + vacancy);
+        }
+//        throw new NoSuchEntityException("Current vacancy are missed");
 
     }
 
+    @Override
+    public List<Vacancy> selectVacancyCityAndWebSiteHave(String webSite, String vacancy, String city) throws DaoSystemException, NoSuchEntityException {
+        return getInformationByVacationAdnAddToList("select * from " + vacancy + " where url like " + "\'%" + webSite + "%\' and city ="+"\'"+city+"\'");
 
+    }
 
 
 }
