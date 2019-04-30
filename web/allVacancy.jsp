@@ -14,6 +14,7 @@ Time: 11:48
 To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -28,7 +29,7 @@ To change this template use File | Settings | File Templates.
 
 
 <h2><font><strong>Retrieve data from database in jsp</strong></font></h2>
-<table llpadding="5" cellspacing="5" border="1">
+<tr llpadding="5" cellspacing="5" border="1">
     <tr>
     <tr bgcolor="#DEB887">
         <%--<th>ID</th>--%>
@@ -39,27 +40,39 @@ To change this template use File | Settings | File Templates.
         <th>SALARY</th>
     </tr>
 
-    <%
-        List<Vacancy> vacancy=ServletDateBase.getChooseVacancy();
-        for (Vacancy vac : vacancy) {
-    %>
+    <%--<%--%>
+        <%--List<Vacancy> vacancy=(List<Vacancy>) request.getAttribute("chooseVacancy");--%>
+<%--//        List<Vacancy> vacancy=ServletDateBase.getChooseVacancy();--%>
+        <%--for (Vacancy vac : vacancy) {--%>
+    <%--%>--%>
+<%--&lt;%&ndash;&ndash;%&gt;--%>
+    <%--<%String s=vac.getUrl(); %>--%>
 
-    <%String s=vac.getUrl(); %>
+    <%--<td><a href=<%="\"" + vac.getUrl() + "\"" %>><%=s %>--%>
+    <%--</a>--%>
+    <%--</td>--%>
+    <%--<td><%=vac.getTitle() %>--%>
+    <%--</td>--%>
+    <%--<td><%=vac.getCity() %>--%>
+    <%--</td>--%>
+    <%--<td><%=vac.getCompanyName() %>--%>
+    <%--</td>--%>
+    <%--<td><%=vac.getSalary() %>--%>
+    <%--</td>--%>
+<%--&lt;%&ndash;&ndash;%&gt;--%>
+    <%--</tr>--%>
+    <%--<%}%>--%>
 
-    <td><a href=<%="\"" + vac.getUrl() + "\"" %>><%=s %>
-    </a>
-    </td>
-    <td><%=vac.getTitle() %>
-    </td>
-    <td><%=vac.getCity() %>
-    </td>
-    <td><%=vac.getCompanyName() %>
-    </td>
-    <td><%=vac.getSalary() %>
-    </td>
 
-    </tr>
-    <%}%>
+    <c:forEach var="vacancy" items="chooseVacancy">
+
+        <td><a href="${vacancy.url}">${vacancy.url}</a></td>
+        <td>"${vacancy.title}" </td>
+        <td>"${vacancy.city}" </td>
+        <td>"${vacancy.companyName}" </td>
+        <td>"${vacancy.salary}" </td>
+    </c:forEach>
+
 
 
 </table>

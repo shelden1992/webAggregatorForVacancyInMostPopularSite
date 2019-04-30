@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.List;
 import java.util.Set;
@@ -21,19 +22,11 @@ import static net.servletDatabase.doCorrectClass.CorrectClass.doCorrectCityOrDat
 public class ServletDateBase extends HttpServlet {
     private VacancyDao vacancyDao=new VacancyDaoMock();
     private final static String PAGE_ALL_VACANCY="allVacancy.jsp";
-    private static List<Vacancy> chooseVacancy;
     private final static GoToAggregVacationAndCreateNewDatabase createDatabase=new GoToAggregVacationAndCreateNewDatabase();
     private static final Set<String> database_name=new ConcurrentSkipListSet<>() {{
         add("vacancy_table");
     }};
 
-    public static List<Vacancy> getChooseVacancy() {
-        return chooseVacancy;
-    }
-
-    public static void setChooseVacancy(List<Vacancy> chooseVacancy) {
-        ServletDateBase.chooseVacancy=chooseVacancy;
-    }
 
     private final static String PAGE_ERROR="error.jsp";
 
@@ -61,58 +54,57 @@ public class ServletDateBase extends HttpServlet {
             if (city.isEmpty()) {
 
                 try {
-                    chooseVacancy=vacancyDao.selectAllVacancy(vacancy);
+                    request.setAttribute("chooseVacancy", vacancyDao.selectAllVacancy(vacancy));
+//                    chooseVacancy=vacancyDao.selectAllVacancy(vacancy);
                     request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
 
-
-                } catch (DaoSystemException | NoSuchEntityException e) {
-                    e.printStackTrace();
+                    return;
+                } catch (DaoSystemException | NoSuchEntityException ignore) {
                 }
             } else {
                 try {
-                    chooseVacancy=vacancyDao.selectVacanсyByCity(city, vacancy);
+                    request.setAttribute("chooseVacancy", vacancyDao.selectVacanсyByCity(city, vacancy));
+//                    chooseVacancy=vacancyDao.selectVacanсyByCity(city, vacancy);
                     request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
-                } catch (NoSuchEntityException | DaoSystemException e) {
-                    e.printStackTrace();
+                    return;
+                } catch (NoSuchEntityException | DaoSystemException ignore) {
                 }
 
             }
 
 
+        } else if (vacancy != null && database_name.contains(vacancy) && !web_site.equals("allWebSite")) {
+            if (city.isEmpty()) {
+                try {
+                    request.setAttribute("chooseVacancy", vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy));
+//                    chooseVacancy=vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
+                    request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
+                    return;
 
-        }
-        else if(vacancy!=null && database_name.contains(vacancy) && !web_site.equals("allWebSite")){
-          if (city.isEmpty()) {
-              try {
-                  chooseVacancy=vacancyDao.selectAllVacancyWithoutCity(web_site, vacancy);
-                  request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
+                } catch (DaoSystemException | NoSuchEntityException ignore) {
 
+                }
+            } else {
+                try {
+                    request.setAttribute("chooseVacancy", vacancyDao.selectVacancyCityAndWebSiteHave(web_site, vacancy, city));
+//                    chooseVacancy=vacancyDao.selectVacancyCityAndWebSiteHave(web_site, vacancy, city);
+                    request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
 
-              } catch (DaoSystemException | NoSuchEntityException e) {
-                  e.printStackTrace();
-              }
-          }
-          else {
-              try {
-                  chooseVacancy=vacancyDao.selectVacancyCityAndWebSiteHave(web_site, vacancy,city);
-                  request.getRequestDispatcher(PAGE_ALL_VACANCY).forward(request, response);
+                    return;
+                } catch (DaoSystemException | NoSuchEntityException ignore) {
+//                  e.printStackTrace();
+                }
+            }
 
-
-              } catch (DaoSystemException | NoSuchEntityException e) {
-                  e.printStackTrace();
-              }
-          }
-
-        }
-
-        else if (vacancy != null && !database_name.contains(vacancy)) {
+        } else if (vacancy != null && !database_name.contains(vacancy)) {
 
 
             createDatabase.aggregatorCreate(vacancy, city, vacancy, !database_name.contains(vacancy));
-
+//            HttpSession session=request.getSession(true);
+//            session.setAttribute(vacancy, city);
             database_name.add(vacancy);
             switchWhatWeDo(vacancy, city, salary_min, salary_max, web_site, request, response);
-
+            return;
         }
 
 
