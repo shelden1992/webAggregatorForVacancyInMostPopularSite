@@ -28,9 +28,8 @@ To change this template use File | Settings | File Templates.
 <body>
 
 
-<h2><font><strong>Retrieve data from database in jsp</strong></font></h2>
-<tr llpadding="5" cellspacing="5" border="1">
-    <tr>
+    <h2><font><strong>Retrieve data from database in jsp</strong></font></h2>
+    <table llpadding="5" cellspacing="5" border="1">
     <tr bgcolor="#DEB887">
         <%--<th>ID</th>--%>
         <th>URL</th>
@@ -40,12 +39,14 @@ To change this template use File | Settings | File Templates.
         <th>SALARY</th>
     </tr>
 
+    <%--</tr>--%>
+
     <%--<%--%>
-        <%--List<Vacancy> vacancy=(List<Vacancy>) request.getAttribute("chooseVacancy");--%>
-<%--//        List<Vacancy> vacancy=ServletDateBase.getChooseVacancy();--%>
-        <%--for (Vacancy vac : vacancy) {--%>
+    <%--List<Vacancy> vacancy=(List<Vacancy>) request.getAttribute("chooseVacancy");--%>
+    <%--//        List<Vacancy> vacancy=ServletDateBase.getChooseVacancy();--%>
+    <%--for (Vacancy vac : vacancy) {--%>
     <%--%>--%>
-<%--&lt;%&ndash;&ndash;%&gt;--%>
+
     <%--<%String s=vac.getUrl(); %>--%>
 
     <%--<td><a href=<%="\"" + vac.getUrl() + "\"" %>><%=s %>--%>
@@ -59,23 +60,24 @@ To change this template use File | Settings | File Templates.
     <%--</td>--%>
     <%--<td><%=vac.getSalary() %>--%>
     <%--</td>--%>
-<%--&lt;%&ndash;&ndash;%&gt;--%>
+
     <%--</tr>--%>
     <%--<%}%>--%>
 
 
-    <c:forEach var="vacancy" items="chooseVacancy">
+    <c:forEach var="vacancy" items="${chooseVacancy}">
 
         <td><a href="${vacancy.url}">${vacancy.url}</a></td>
-        <td>"${vacancy.title}" </td>
-        <td>"${vacancy.city}" </td>
-        <td>"${vacancy.companyName}" </td>
-        <td>"${vacancy.salary}" </td>
+        <td>${vacancy.title}</td>
+        <td>${vacancy.city}</td>
+        <td>${vacancy.companyName}</td>
+        <td>${vacancy.salary}</td>
+        </tr>
     </c:forEach>
 
-
-
 </table>
+
+
 
 </body>
 </html>

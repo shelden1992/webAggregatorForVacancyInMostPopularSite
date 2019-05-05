@@ -1,4 +1,4 @@
-package net.servletDatabase.model.exception;
+package net.servletDatabase.model_dao.exception;
 
 public class NoSuchEntityException extends DaoBusinesException {
     public NoSuchEntityException(String message) {

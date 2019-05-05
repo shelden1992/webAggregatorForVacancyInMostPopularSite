@@ -1,4 +1,4 @@
-package net.servletDatabase.model;
+package net.servletDatabase.model_dao;
 
 import com.aggregator.Controller;
 import com.aggregator.model.*;
@@ -7,7 +7,7 @@ import com.aggregator.view.View;
 
 public class GoToAggregVacationAndCreateNewDatabase {
 
-    public void aggregatorCreate(String typeVacanсy, String city,String nameDatabase ,boolean newDatabase) {
+    public void aggregatorCreate(String typeVacanсy, String city, String nameDatabase, boolean newDatabase) {
 
 
         Provider[] providers={new Provider(new RabotaStrategy()), new Provider(new DouStrategy()), new Provider(new HHStrategy()), new Provider(new WorkUaStrategy())};
@@ -15,18 +15,12 @@ public class GoToAggregVacationAndCreateNewDatabase {
 
 //        HtmlView htmlView = new HtmlView();
         DatabaseView databaseView=new DatabaseView();
-        View[] views={databaseView};
+        View[] views={databaseView,};
+
+        Controller controller=new Controller(new Model(views, providers));
 
 
-        Model model=new Model(views, providers);
-
-
-//
-        Controller controller=new Controller(model);
-
-
-
-        controller.onCitySelectAndTypeVacancy(typeVacanсy, city, nameDatabase, newDatabase );
+        controller.onCitySelectAndTypeVacancy(typeVacanсy, city, nameDatabase, newDatabase);
 
         databaseView.setController(controller);
     }

@@ -1,9 +1,9 @@
-package net.servletDatabase.model;
+package net.servletDatabase.model_dao;
 
 
 import com.aggregator.vo.Vacancy;
-import net.servletDatabase.model.exception.DaoSystemException;
-import net.servletDatabase.model.exception.NoSuchEntityException;
+import net.servletDatabase.model_dao.exception.DaoSystemException;
+import net.servletDatabase.model_dao.exception.NoSuchEntityException;
 
 import java.util.List;
 

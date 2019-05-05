@@ -1,4 +1,4 @@
-package net.servletDatabase.model.exception;
+package net.servletDatabase.model_dao.exception;
 
 public class DaoBusinesException extends DaoException {
     public DaoBusinesException(String message) {

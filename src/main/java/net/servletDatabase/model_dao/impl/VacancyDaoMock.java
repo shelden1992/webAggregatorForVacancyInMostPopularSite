@@ -1,9 +1,9 @@
-package net.servletDatabase.model.impl;
+package net.servletDatabase.model_dao.impl;
 
 import com.aggregator.vo.Vacancy;
-import net.servletDatabase.model.VacancyDao;
-import net.servletDatabase.model.exception.DaoSystemException;
-import net.servletDatabase.model.exception.NoSuchEntityException;
+import net.servletDatabase.model_dao.VacancyDao;
+import net.servletDatabase.model_dao.exception.DaoSystemException;
+import net.servletDatabase.model_dao.exception.NoSuchEntityException;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,8 +11,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-
-import static net.servletDatabase.doCorrectClass.CorrectClass.doCorrectCityOrDatabaseName;
 
 public class VacancyDaoMock implements VacancyDao {
 
