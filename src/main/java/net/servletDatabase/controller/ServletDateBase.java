@@ -20,7 +20,11 @@ import static net.servletDatabase.doCorrectClass.CorrectClass.doCorrectCityOrDat
 public class ServletDateBase extends HttpServlet {
     private VacancyDao vacancyDao=new VacancyDaoMock();
     private final static String PAGE_ALL_VACANCY="allVacancy.jsp";
+
+
     private final static GoToAggregVacationAndCreateNewDatabase createDatabase=new GoToAggregVacationAndCreateNewDatabase();
+
+
     private static final Set<String> database_name=new ConcurrentSkipListSet<>() {{
         add("vacancy_table");
     }};
