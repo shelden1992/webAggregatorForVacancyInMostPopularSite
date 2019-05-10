@@ -63,6 +63,7 @@ public class VacancyDaoMock implements VacancyDao {
     private List<Vacancy> getInformationByVacationAdnAddToList(String query) throws NoSuchEntityException {
         List<Vacancy> list=new ArrayList<>();
         try (ResultSet resultSet=connectToDatabase(query)) {
+            // закрываю не коннектор, а резал сеты.
 
             while (resultSet.next()) {
 
