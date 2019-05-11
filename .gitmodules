@@ -1,0 +1,3 @@
+[submodule "AggregatorVacancy"]
+	path = AggregatorVacancy
+	url = https://github.com/shelden1992/AggregatorVacancy
