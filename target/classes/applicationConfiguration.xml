@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+
+
+<!--<bean id = "vacancyDao" class="net.servletDatabase.modelDao.impl.VacancyDaoImplement"/>-->
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="connect.properties"/>
+    </bean>
+
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${user}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+
+    <bean id="vacancyDao"
+          class= "net.servletDatabase.modelDao.impl.VacancyDaoImplement">
+        <property name="dataSource"  ref="dataSource" />
+    </bean>
+
+
+
+</beans>

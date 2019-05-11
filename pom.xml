@@ -19,17 +19,24 @@
             </plugin>
         </plugins>
     </build>
+
+
+    <properties>
+        <jdk.version>1.11</jdk.version>
+        <sping.version>5.1.7.RELEASE</sping.version>
+        <servlet.version>4.0.1</servlet.version>
+        <aspectj.version>1.9.3</aspectj.version>
+
+    </properties>
+
     <dependencies>
-
-
-
 
 
         <dependency>
             <groupId>javax.servlet</groupId>
 
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
 
         </dependency>
@@ -66,8 +73,7 @@
         </dependency>
 
 
-
-         <!--translate-->
+        <!--translate-->
         <dependency>
             <groupId>com.google.apis</groupId>
             <artifactId>google-api-services-translate</artifactId>
@@ -80,6 +86,72 @@
             <artifactId>google-cloud-translate</artifactId>
             <version>1.70.0</version>
         </dependency>
+
+        <!-- - -  - - - - - - - - - spring - - - - - - - - - -->
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-expression -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-expression</artifactId>
+            <version>${sping.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-dao -->
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-dao</artifactId>
+            <version>2.0.8</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+
 
     </dependencies>
 

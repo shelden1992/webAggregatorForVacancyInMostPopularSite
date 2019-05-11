@@ -1,10 +1,11 @@
 package net.servletDatabase.controller;
 
-import net.servletDatabase.model_dao.GoToAggregVacationAndCreateNewDatabase;
-import net.servletDatabase.model_dao.VacancyDao;
-import net.servletDatabase.model_dao.exception.DaoSystemException;
-import net.servletDatabase.model_dao.exception.NoSuchEntityException;
-import net.servletDatabase.model_dao.impl.VacancyDaoMock;
+import net.servletDatabase.inject.Inject;
+import net.servletDatabase.modelDao.GoToAggregVacationAndCreateNewDatabase;
+import net.servletDatabase.modelDao.VacancyDao;
+import net.servletDatabase.modelDao.exception.DaoSystemException;
+import net.servletDatabase.modelDao.exception.NoSuchEntityException;
+import net.servletDatabase.modelDao.impl.VacancyDaoImplement;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +17,11 @@ import java.io.*;
 import static com.aggregator.view.DatabaseView.databaseNameAndCity;
 import static net.servletDatabase.translateAndRedactorNameTable.CorrectClass.doCorrectCityOrDatabaseName;
 
-public class ServletDateBase extends HttpServlet {
-    private VacancyDao vacancyDao=new VacancyDaoMock();
+public class ServletDateBase extends DependencyInjectionServlet {
+
+
+    @Inject("vacancyDao")
+    private VacancyDao vacancyDao;
     private final static String PAGE_ALL_VACANCY="allVacancy.jsp";
     private final static GoToAggregVacationAndCreateNewDatabase createDatabase=new GoToAggregVacationAndCreateNewDatabase();
 //    private static final Set<String> databaseNameAndCity=new ConcurrentSkipListSet<>();
