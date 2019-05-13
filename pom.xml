@@ -23,7 +23,7 @@
 
     <properties>
         <jdk.version>1.11</jdk.version>
-        <sping.version>5.1.7.RELEASE</sping.version>
+        <spring.version>5.1.7.RELEASE</spring.version>
         <servlet.version>4.0.1</servlet.version>
         <aspectj.version>1.9.3</aspectj.version>
 
@@ -92,14 +92,14 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
 
@@ -107,7 +107,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
 
@@ -115,7 +115,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
 
@@ -130,7 +130,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aop</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
 
 
@@ -138,7 +138,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-expression</artifactId>
-            <version>${sping.version}</version>
+            <version>${spring.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-dao -->
 

@@ -4,6 +4,7 @@ import com.aggregator.Controller;
 import com.aggregator.model.*;
 import com.aggregator.view.DatabaseView;
 import com.aggregator.view.View;
+import net.servletDatabase.inject.Inject;
 
 public class GoToAggregVacationAndCreateNewDatabase {
 
@@ -14,8 +15,11 @@ public class GoToAggregVacationAndCreateNewDatabase {
 
 
 //        HtmlView htmlView = new HtmlView();
-        DatabaseView databaseView=new DatabaseView();
-        View[] views={databaseView,};
+
+
+//        @Inject("view")
+        View databaseView=new DatabaseView();
+        View[] views={databaseView};
 
         Controller controller=new Controller(new Model(views, providers));
 
