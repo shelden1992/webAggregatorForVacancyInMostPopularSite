@@ -27,5 +27,5 @@ public interface VacancyDao {
 
 List<Vacancy> selectVacancyCityAndWebSiteHave(String webSite, String vacancy, String city) throws DaoSystemException, NoSuchEntityException;
 
-
+    boolean checkingExistDatabase(String vacancy)  throws DaoSystemException, NoSuchEntityException;
 }

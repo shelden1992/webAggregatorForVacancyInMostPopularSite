@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class VacancyDaoImplement implements VacancyDao {
@@ -22,6 +23,18 @@ public class VacancyDaoImplement implements VacancyDao {
     private DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
 
+
+
+
+    @Override
+     public boolean checkingExistDatabase(String database){
+        String query = "SHOW TABLES LIKE \'" + database + "\'";
+        List<Map<String, Object>> maps=jdbcTemplate.queryForList(query);
+        System.out.println(maps);
+
+
+        return !maps.isEmpty();
+    }
 
     @Override
 
@@ -78,39 +91,10 @@ public class VacancyDaoImplement implements VacancyDao {
     }
 
     private List<Vacancy> getInformationByVacationAdnAddToList(String query) throws NoSuchEntityException {
-        List<Vacancy> list=new ArrayList<>();
-//        try (ResultSet resultSet=connectToDatabase(query)) {
-//            // закрываю не коннектор, а резал сеты.
-//
-//            while (resultSet.next()) {
-//
-//                Vacancy vacancy=new Vacancy();
-//
-//                resultSet.getString("id");
-//
-//                vacancy.setUrl(resultSet.getString("url"));
-//
-//                vacancy.setTitle(resultSet.getString("title"));
-//
-//                vacancy.setCity(resultSet.getString("city"));
-//
-//                vacancy.setCompanyName(resultSet.getString("company_name"));
-//
-//                vacancy.setSalary(resultSet.getString("salary"));
-//                list.add(vacancy);
-//
-//
-//            }
+
+        List<Vacancy> list=jdbcTemplate.query(query, new VacancyMapper());
 
 
-        list=jdbcTemplate.query(query, new VacancyMapper());
-
-
-//    } catch (SQLException | DaoSystemException e) {
-//            e.printStackTrace();
-//
-//
-//        }
         if (list.isEmpty()) throw new NoSuchEntityException("Not found vacancy");
 
         return list;
@@ -147,6 +131,7 @@ public class VacancyDaoImplement implements VacancyDao {
         return getInformationByVacationAdnAddToList("select * from " + vacancy + " where url like " + "\'%" + webSite + "%\' and city =" + "\'" + city + "\'");
 
     }
+
 
 
 }

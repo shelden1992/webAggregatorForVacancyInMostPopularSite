@@ -13,13 +13,12 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 public class DependencyInjectionServlet extends HttpServlet {
+
     @Override
     public void init() throws ServletException {
 
-        try{
+        try {
             ApplicationContext applicationContext=new ClassPathXmlApplicationContext("applicationConfiguration.xml");
-
-
 
 
             List<Field> fields=FilterAnnotationByReflection.getAllField(this.getClass(), DependencyInjectionServlet.class);
@@ -37,7 +36,7 @@ public class DependencyInjectionServlet extends HttpServlet {
                 // а вообще спокойно можно брать разные поля
                 System.out.println("Bean name " + beanName);
 
-                VacancyDaoImplement vacancyDaoImplement= (VacancyDaoImplement) applicationContext.getBean(beanName);
+                VacancyDaoImplement vacancyDaoImplement=(VacancyDaoImplement) applicationContext.getBean(beanName);
 
                 if (vacancyDaoImplement == null) {
 
@@ -58,5 +57,9 @@ public class DependencyInjectionServlet extends HttpServlet {
 
 
 
+
+
+
     }
+
 }

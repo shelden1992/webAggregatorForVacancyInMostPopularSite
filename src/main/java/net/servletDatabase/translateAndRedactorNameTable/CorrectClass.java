@@ -30,7 +30,7 @@ public class CorrectClass {
             return null;
         }
 
-        String s=cityOrDatabase;
+        String s=cityOrDatabase.trim();
 
 
         s=s.replaceAll(" ", "_");
